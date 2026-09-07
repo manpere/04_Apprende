@@ -1,6 +1,9 @@
 import { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
+const mono = { fontFamily: "'IBM Plex Mono', ui-monospace, monospace" };
+const sans = { fontFamily: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif" };
+
 export default function Estadisticas() {
   const { temas, resetearProgreso } = useContext(AppContext);
   const [temaExpandido, setTemaExpandido] = useState(null);
@@ -24,40 +27,40 @@ export default function Estadisticas() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Estadísticas y Gestión</h2>
+    <div className="space-y-6" style={sans}>
+      <h2 className="text-2xl font-semibold text-[#17181C]">Estadísticas y gestión</h2>
 
       {/* -- TARJETA GLOBAL -- */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-        <h3 className="text-lg font-bold text-gray-700 mb-4">Progreso Global</h3>
-        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6 text-center">
-          <div className="bg-green-50 py-4 px-2 rounded-xl border border-green-100">
-            <span className="block text-3xl md:text-5xl font-black text-green-600 mb-1">{globalAcertadas}</span>
-            <span className="text-xs md:text-sm font-bold text-green-800 uppercase">Acertadas</span>
+      <div className="bg-white p-6 md:p-8 rounded-2xl border border-[#E4E3DE]">
+        <h3 className="text-sm font-medium text-[#6E7076] mb-6">Progreso global</h3>
+        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-6">
+          <div className="text-center md:text-left border-r border-[#E4E3DE] last:border-r-0">
+            <span className="block text-3xl md:text-4xl font-semibold text-[#3D7A5C]" style={mono}>{globalAcertadas}</span>
+            <span className="text-xs md:text-sm text-[#6E7076] mt-1 block">Acertadas</span>
           </div>
-          <div className="bg-red-50 py-4 px-2 rounded-xl border border-red-100">
-            <span className="block text-3xl md:text-5xl font-black text-red-600 mb-1">{globalFalladas}</span>
-            <span className="text-xs md:text-sm font-bold text-red-800 uppercase">Falladas</span>
+          <div className="text-center md:text-left border-r border-[#E4E3DE] last:border-r-0">
+            <span className="block text-3xl md:text-4xl font-semibold text-[#AB4A3C]" style={mono}>{globalFalladas}</span>
+            <span className="text-xs md:text-sm text-[#6E7076] mt-1 block">Falladas</span>
           </div>
-          <div className="bg-gray-50 py-4 px-2 rounded-xl border border-gray-200">
-            <span className="block text-3xl md:text-5xl font-black text-gray-600 mb-1">{globalNulas}</span>
-            <span className="text-xs md:text-sm font-bold text-gray-700 uppercase">Sin responder</span>
+          <div className="text-center md:text-left">
+            <span className="block text-3xl md:text-4xl font-semibold text-[#17181C]" style={mono}>{globalNulas}</span>
+            <span className="text-xs md:text-sm text-[#6E7076] mt-1 block">Sin responder</span>
           </div>
         </div>
-        
-        <div className="pt-4 border-t border-gray-100 flex justify-end">
-          <button 
+
+        <div className="pt-5 border-t border-[#E4E3DE] flex justify-end">
+          <button
             onClick={() => manejarReseteo('global', null, 'TODO EL PROGRESO')}
-            className="text-red-600 font-bold hover:bg-red-50 px-4 py-2 rounded-lg transition text-sm flex items-center gap-2"
+            className="text-[#AB4A3C] font-medium hover:bg-[#AB4A3C]/5 px-4 py-2 rounded-lg transition text-sm"
           >
-            <span>⚠️</span> Resetear TODO el progreso
+            Resetear todo el progreso
           </button>
         </div>
       </div>
 
       {/* -- DETALLE POR TEMAS Y APARTADOS -- */}
-      <h3 className="text-xl font-bold text-gray-800 mt-8 mb-4">Detalle por Temas y Apartados</h3>
-      <div className="space-y-4">
+      <h3 className="text-lg font-semibold text-[#17181C] pt-2">Detalle por temas y apartados</h3>
+      <div className="space-y-3">
         {temas.map(tema => {
           // Estadísticas específicas de este tema
           let tAcertadas = 0, tFalladas = 0, tNulas = 0;
@@ -70,35 +73,35 @@ export default function Estadisticas() {
           const isOpen = temaExpandido === tema.temaId;
 
           return (
-            <div key={tema.temaId} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300">
-              
+            <div key={tema.temaId} className="bg-white rounded-xl border border-[#E4E3DE] overflow-hidden">
+
               {/* Cabecera del Tema (Clicable para desplegar apartados) */}
-              <div className={`p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-colors ${isOpen ? 'bg-blue-50/50' : 'hover:bg-gray-50'}`}>
+              <div className={`p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-colors ${isOpen ? 'bg-[#FAFAF9]' : 'hover:bg-[#FAFAF9]'}`}>
                 <div className="flex-1 cursor-pointer w-full" onClick={() => setTemaExpandido(isOpen ? null : tema.temaId)}>
-                  <h4 className="font-bold text-gray-800 text-lg flex items-center gap-2">
+                  <h4 className="font-medium text-[#17181C] flex items-center gap-2">
                     {tema.nombreTema}
-                    <span className={`text-xs text-blue-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+                    <span className={`text-xs text-[#6E7076] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>▾</span>
                   </h4>
-                  <div className="flex gap-4 text-sm mt-2">
-                    <span className="text-green-600 font-bold">{tAcertadas} A</span>
-                    <span className="text-red-600 font-bold">{tFalladas} F</span>
-                    <span className="text-gray-500 font-bold">{tNulas} SR</span>
+                  <div className="flex gap-4 text-sm mt-1.5" style={mono}>
+                    <span className="text-[#3D7A5C]">{tAcertadas} A</span>
+                    <span className="text-[#AB4A3C]">{tFalladas} F</span>
+                    <span className="text-[#6E7076]">{tNulas} SR</span>
                   </div>
                 </div>
-                
-                <button 
+
+                <button
                   onClick={() => manejarReseteo('tema', tema.temaId, `el tema: ${tema.nombreTema}`)}
-                  className="bg-red-50 hover:bg-red-100 text-red-700 font-bold py-2 px-4 rounded-lg text-sm transition shadow-sm w-full md:w-auto"
+                  className="text-[#AB4A3C] hover:bg-[#AB4A3C]/5 font-medium py-2 px-4 rounded-lg text-sm transition w-full md:w-auto border border-transparent hover:border-[#AB4A3C]/20"
                 >
-                  Resetear Tema
+                  Resetear tema
                 </button>
               </div>
 
               {/* Acordeón: Detalle de los Apartados */}
               {isOpen && (
-                <div className="bg-gray-50 p-4 md:p-6 border-t border-gray-100 space-y-3">
-                  <h5 className="font-black text-gray-400 text-xs uppercase tracking-widest mb-3">Apartados del tema</h5>
-                  
+                <div className="bg-[#FAFAF9] p-4 md:p-5 border-t border-[#E4E3DE] space-y-2.5">
+                  <h5 className="text-xs font-medium text-[#6E7076] mb-1">Apartados del tema</h5>
+
                   {tema.apartados.map(apartado => {
                     // Estadísticas específicas de este apartado
                     let aAcertadas = 0, aFalladas = 0, aNulas = 0;
@@ -111,20 +114,20 @@ export default function Estadisticas() {
                     });
 
                     return (
-                      <div key={apartado.id} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                      <div key={apartado.id} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 bg-white p-4 rounded-lg border border-[#E4E3DE]">
                         <div>
-                          <span className="font-bold text-gray-700">{apartado.nombre}</span>
-                          <div className="flex gap-3 text-sm mt-1">
-                            <span className="text-green-600 font-semibold">{aAcertadas} A</span>
-                            <span className="text-red-600 font-semibold">{aFalladas} F</span>
-                            <span className="text-gray-500 font-semibold">{aNulas} SR</span>
+                          <span className="font-medium text-[#17181C] text-sm">{apartado.nombre}</span>
+                          <div className="flex gap-3 text-sm mt-1" style={mono}>
+                            <span className="text-[#3D7A5C]">{aAcertadas} A</span>
+                            <span className="text-[#AB4A3C]">{aFalladas} F</span>
+                            <span className="text-[#6E7076]">{aNulas} SR</span>
                           </div>
                         </div>
-                        <button 
+                        <button
                           onClick={() => manejarReseteo('apartado', apartado.id, `el apartado: ${apartado.nombre}`)}
-                          className="bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-1.5 px-3 rounded-md text-xs transition w-full md:w-auto"
+                          className="text-[#6E7076] hover:text-[#AB4A3C] hover:bg-[#AB4A3C]/5 font-medium py-1.5 px-3 rounded-md text-xs transition w-full md:w-auto border border-[#E4E3DE]"
                         >
-                          Resetear Apartado
+                          Resetear apartado
                         </button>
                       </div>
                     );
